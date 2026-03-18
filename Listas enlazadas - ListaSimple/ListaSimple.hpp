@@ -7,45 +7,45 @@ public:
 
     // ===== CONSTRUCTORES =====
 
-    ListaSimple();
+    ListaSimple(); // Listo
 
-    ~ListaSimple();
+    ~ListaSimple(); // Listo
 
-    ListaSimple(const ListaSimple& lista);
+    ListaSimple(const ListaSimple& lista); // Listo
 
-    ListaSimple& operator=(const ListaSimple& pila);
+    ListaSimple& operator=(const ListaSimple& pila); // FALTA ✖️
 
-    // ===== M�TODOS =====
+    // ===== MÉTODOS =====
 
-    void AgregarInicio(int valor);
+    void AgregarInicio(int valor); // Listo
 
-    void AgregarFinal(int valor);
+    void AgregarFinal(int valor); // Listo
 
-    void AgregarEnPosicion(int valor, int pos);
+    void AgregarEnPosicion(int valor, int pos); // Listo
 
-    void EliminarInicio();
+    void EliminarInicio(); // Listo
 
-    void EliminarFinal();
+    void EliminarFinal(); // Listo
 
-    void EliminarEnPosicion();
+    void EliminarEnPosicion(int pos); // Listo
 
-    int BuscarValor(int valor) const;
+    bool BuscarValor(int valor) const; // Listo
 
-    int BuscarPosicion(int valor) const;
+    int BuscarPosicion(int valor) const; // Listo
 
-    int ObtenerPrimero() const;
+    int ObtenerPrimero() const; // Listo
 
-    int ObtenerUltimo() const;
+    int ObtenerUltimo() const; // Listo
 
-    int ObtenerEnPosicion() const;
+    int ObtenerEnPosicion(int pos) const; // Listo
 
-    bool EstaVacia() const;
+    bool EstaVacia() const; // Listo
 
-    int ObtenerTam() const;
+    int ObtenerTam() const; // Listo
 
-    void Vaciar();
+    void Vaciar(); // Lista
 
-    void Imprimir() const;
+    void Imprimir() const; // Lista
 
 private:
     int numElem;
@@ -54,7 +54,7 @@ private:
 
         int valor;
         Elemento *siguiente;
-        Elemento(int val, Elemento *sig); // Constructor de Elemento
+        Elemento(int val, Elemento *sig = nullptr); // Constructor de Elemento
 
     };
 

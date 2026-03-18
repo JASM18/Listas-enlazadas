@@ -1,4 +1,11 @@
 # depslib dependency file v1.0
-1773332320 source:c:\users\axel\desktop\4to semestre\estructura de datos\clase\listas enlazadas\listas enlazadas - listasimple\main.cpp
+1773866732 source:c:\users\axel\desktop\4to semestre\estructura de datos\clase\listas enlazadas\listas enlazadas - listasimple\main.cpp
 	<iostream>
+	"ListaSimple.hpp"
+
+1773866891 source:c:\users\axel\desktop\4to semestre\estructura de datos\clase\listas enlazadas\listas enlazadas - listasimple\listasimple.cpp
+	<iostream>
+	"ListaSimple.hpp"
+
+1773866504 c:\users\axel\desktop\4to semestre\estructura de datos\clase\listas enlazadas\listas enlazadas - listasimple\listasimple.hpp
 
