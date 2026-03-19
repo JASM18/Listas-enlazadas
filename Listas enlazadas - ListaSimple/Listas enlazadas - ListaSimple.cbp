@@ -32,8 +32,8 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="ListaSimple.cpp" />
 		<Unit filename="ListaSimple.hpp" />
+		<Unit filename="ListaSimple.tpp" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
