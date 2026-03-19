@@ -1,16 +1,15 @@
 #include <iostream>
 
-#include "ListaSimple.hpp"
-
 using std::cout;
 using std::endl;
 using std::cerr;
 
-// ==================================
+//***********************************
 // CONSTRUCTORES
-// ==================================
+//***********************************
 
-ListaSimple::ListaSimple()
+template <typename T>
+ListaSimple<T>::ListaSimple()
 {
 
     numElem = 0;
@@ -18,23 +17,26 @@ ListaSimple::ListaSimple()
     ultimo = nullptr;
 }
 
-// ==================================
+//***********************************
 
-ListaSimple::~ListaSimple()
+template <typename T>
+ListaSimple<T>::~ListaSimple()
 {
     Vaciar();
 }
 
-// ==================================
+//***********************************
 
-ListaSimple::ListaSimple(const ListaSimple& lista)
+template <typename T>
+ListaSimple<T>::ListaSimple(const ListaSimple& lista)
 {
     *this = lista;
 }
 
-// ==================================
+//***********************************
 
-ListaSimple& ListaSimple::operator=(const ListaSimple& lista)
+template <typename T>
+ListaSimple<T> &ListaSimple<T>::operator=(const ListaSimple& lista)
 {
     if (this == &lista) return *this; // handle self assignment
     //assignment operator
@@ -55,11 +57,12 @@ ListaSimple& ListaSimple::operator=(const ListaSimple& lista)
     return *this;
 }
 
-// ==================================
+//***********************************
 // MÉTODOS PÚBLICOS
-// ==================================
+//***********************************
 
-void ListaSimple::AgregarInicio(int valor)
+template <typename T>
+void ListaSimple<T>::AgregarInicio(T valor)
 {
     try{
         Elemento *nuevo = new Elemento(valor);
@@ -74,13 +77,14 @@ void ListaSimple::AgregarInicio(int valor)
 
         ++numElem;
     }catch(const std::bad_alloc&){
-        // throw ListaNoMemoria();
+        throw ListaNoMemoria();
     }
 }
 
-// ==================================
+//***********************************
 
-void ListaSimple::AgregarFinal(int valor)
+template <typename T>
+void ListaSimple<T>::AgregarFinal(T valor)
 {
     try{
         Elemento *nuevo = new Elemento(valor);
@@ -97,16 +101,17 @@ void ListaSimple::AgregarFinal(int valor)
 
         ++numElem;
     }catch(const std::bad_alloc&){
-        // throw ListaNoMemoria();
+        throw ListaNoMemoria();
     }
 }
 
-// ==================================
+//***********************************
 
-void ListaSimple::AgregarEnPosicion(int valor, int pos)
+template <typename T>
+void ListaSimple<T>::AgregarEnPosicion(T valor, int pos)
 {
     if (pos < 0 || pos > numElem){
-        //throw // Excepcion
+        throw ListaIndice();
     }
 
     if(pos == 0){
@@ -126,19 +131,20 @@ void ListaSimple::AgregarEnPosicion(int valor, int pos)
             ++numElem;
 
         }catch(const std::bad_alloc&){
-            //throw ListaNoMemoria();
+            throw ListaNoMemoria();
         }
 
 
     }
 }
 
-// ==================================
+//***********************************
 
-void ListaSimple::EliminarInicio()
+template <typename T>
+void ListaSimple<T>::EliminarInicio()
 {
     if(EstaVacia()){
-        //throw ListaVacia();
+        throw ListaVacia();
     }
 
     Elemento *porBorrar = inicio;
@@ -157,12 +163,13 @@ void ListaSimple::EliminarInicio()
     --numElem;
 }
 
-// ==================================
+//***********************************
 
-void ListaSimple::EliminarFinal()
+template <typename T>
+void ListaSimple<T>::EliminarFinal()
 {
     if(EstaVacia()){
-        //throw ListaVacia();
+        throw ListaVacia();
     }
 
     Elemento *porBorrar = ultimo;
@@ -180,7 +187,6 @@ void ListaSimple::EliminarFinal()
 
         anterior->siguiente = nullptr;
         ultimo = anterior;
-
     }
 
     delete porBorrar;
@@ -188,12 +194,13 @@ void ListaSimple::EliminarFinal()
 
 }
 
-// ==================================
+//***********************************
 
-void ListaSimple::EliminarEnPosicion(int pos)
+template <typename T>
+void ListaSimple<T>::EliminarEnPosicion(int pos)
 {
     if(pos < 0 || pos >= numElem){
-        //throw // EXCEPCION
+        throw ListaIndice();
     }
 
     if(pos == 0){
@@ -214,9 +221,10 @@ void ListaSimple::EliminarEnPosicion(int pos)
     }
 }
 
-// ==================================
+//***********************************
 
-bool ListaSimple::BuscarValor(int valor) const
+template <typename T>
+bool ListaSimple<T>::BuscarValor(T valor) const
 {
     Elemento *visitado = inicio;
     while(visitado != nullptr && visitado->valor != valor){
@@ -226,7 +234,7 @@ bool ListaSimple::BuscarValor(int valor) const
     return visitado != nullptr;
 }
 
-// ==================================
+//***********************************
 
 // Nos devuelve en que posicion esta cierto valor
 // Ejemplo:
@@ -234,7 +242,8 @@ bool ListaSimple::BuscarValor(int valor) const
 // BuscarPosicion(6);
 // Regresa 2
 
-int ListaSimple::BuscarPosicion(int valor) const
+template <typename T>
+int ListaSimple<T>::BuscarPosicion(T valor) const
 {
     Elemento *visitado = inicio;
     int pos = 0;
@@ -245,37 +254,39 @@ int ListaSimple::BuscarPosicion(int valor) const
     }
 
     return visitado != nullptr ? pos : -1;
-
 }
 
-// ==================================
+//***********************************
 
-int ListaSimple::ObtenerPrimero() const
+template <typename T>
+T ListaSimple<T>::ObtenerPrimero() const
 {
     if(EstaVacia()){
-        //throw ListaVacia();
+        throw ListaVacia();
     }
 
     return inicio->valor;
 }
 
-// ==================================
+//***********************************
 
-int ListaSimple::ObtenerUltimo() const
+template <typename T>
+T ListaSimple<T>::ObtenerUltimo() const
 {
     if(EstaVacia()){
-        //throw ListaVacia();
+        throw ListaVacia();
     }
 
     return ultimo->valor;
 }
 
-// ==================================
+//***********************************
 
-int ListaSimple::ObtenerEnPosicion(int pos) const
+template <typename T>
+T ListaSimple<T>::ObtenerEnPosicion(int pos) const
 {
     if(pos < 0 || pos >= numElem){
-        //throw // Excepcion
+        throw ListaIndice();
     }
 
     Elemento *visitado = inicio;
@@ -287,30 +298,34 @@ int ListaSimple::ObtenerEnPosicion(int pos) const
     return visitado->valor;
 }
 
-// ==================================
+//***********************************
 
-bool ListaSimple::EstaVacia() const
+template <typename T>
+bool ListaSimple<T>::EstaVacia() const
 {
     return numElem == 0;
 }
 
 // ==================================
 
-int ListaSimple::ObtenerTam() const
+template <typename T>
+int ListaSimple<T>::ObtenerTam() const
 {
     return numElem;
 }
 
-// ==================================
+//***********************************
 
-void ListaSimple::Vaciar()
+template <typename T>
+void ListaSimple<T>::Vaciar()
 {
     while(!EstaVacia()) EliminarInicio();
 }
 
-// ==================================
+//***********************************
 
-void ListaSimple::Imprimir() const
+template <typename T>
+void ListaSimple<T>::Imprimir() const
 {
     if(EstaVacia()){
         std::cout << "[ ]" << std::endl;
@@ -329,27 +344,43 @@ void ListaSimple::Imprimir() const
 }
 
 //***********************************
+
+template <typename T>
+std::ostream& operator<<(std::ostream& salida, const ListaSimple<T>& lista)
+{
+    lista.Imprimir();
+    return salida;
+}
+
+
+//***********************************
 // Constructor de Elemento
 //***********************************
 
-ListaSimple::Elemento::Elemento(int v, Elemento *sig /*=nullptr*/) : valor(v), siguiente(sig){}
+template <typename T>
+ListaSimple<T>::Elemento::Elemento(T v, Elemento *sig /*=nullptr*/) : valor(v), siguiente(sig){}
 
 //***********************************
 // Implementación de la clase ListaVacia
 //***********************************
 
 template <typename T>
-Lista<T>::ListaVacia::ListaVacia() throw() {}
+ListaSimple<T>::ListaVacia::ListaVacia() throw() {}
 
 //***********************************
 
 template <typename T>
-Lista<T>::ListaNoMemoria::ListaNoMemoria() throw(){}
+ListaSimple<T>::ListaNoMemoria::ListaNoMemoria() throw(){}
 
 //***********************************
 
 template <typename T>
-const char *Lista<T>::ListaVacia::what() const throw()
+ListaSimple<T>::ListaIndice::ListaIndice() throw(){}
+
+//***********************************
+
+template <typename T>
+const char *ListaSimple<T>::ListaVacia::what() const throw()
 {
     return "La Lista se encuentra vac\241a.";
 }
@@ -357,7 +388,15 @@ const char *Lista<T>::ListaVacia::what() const throw()
 //***********************************
 
 template <typename T>
-const char *Lista<T>::ListaNoMemoria::what() const throw()
+const char *ListaSimple<T>::ListaNoMemoria::what() const throw()
 {
     return "No hay memoria disponible.";
+}
+
+//***********************************
+
+template <typename T>
+const char *ListaSimple<T>::ListaIndice::what() const throw()
+{
+    return "Indice fuera de rango.";
 }
